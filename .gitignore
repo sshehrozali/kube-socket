@@ -1,0 +1,24 @@
+# Binaries
+/bin/
+*.exe
+*.dll
+*.so
+*.dylib
+networking
+kubesocket
+
+# Test / coverage
+*.out
+coverage.out
+profile.cov
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# Env
+.env
+.env.local
