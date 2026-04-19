@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: kubemesh
+  name: kubesocket
 spec:
   selector:
     matchLabels:
-      name: kubemesh
+      name: kubesocket
   template:
     metadata:
       labels:
-        name: kubemesh
+        name: kubesocket
     spec:
       hostNetwork: true # CRITICAL: This lets you see the node's traffic
       containers:
-      - name: kubemesh
-        image: kubemesh:v3
+      - name: kubesocket
+        image: kubesocket:v3
         securityContext:
-          privileged: true # CRITICAL: Accessing kubemesh interfaces requires root-level permissions
+          privileged: true # CRITICAL: Accessing kubesocket interfaces requires root-level permissions

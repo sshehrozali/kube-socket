@@ -1,9 +1,9 @@
-# --- Kubemesh Build Configuration ---
+# --- KubeSocket Build Configuration ---
 DOCKER_USER  ?= shehrozdevhub
-IMAGE_NAME   ?= kubemesh
+IMAGE_NAME   ?= kubesocket
 VERSION      ?= v1.0.1
 PLATFORMS    ?= linux/amd64,linux/arm64
-BUILDER_NAME ?= kubemesh-builder
+BUILDER_NAME ?= kubesocket-builder
 
 FULL_IMAGE_NAME = $(DOCKER_USER)/$(IMAGE_NAME)
 
@@ -12,7 +12,7 @@ FULL_IMAGE_NAME = $(DOCKER_USER)/$(IMAGE_NAME)
 # Default target: show help
 help:
 	@echo "================================================================"
-	@echo "Kubemesh Build System"
+	@echo "KubeSocket Build System"
 	@echo "================================================================"
 	@echo "Usage:"
 	@echo "  make build-local  - Build for your current machine architecture"

@@ -1,9 +1,9 @@
-# 🕸️ KubeMesh
+# 🕸️ KubeSocket
 **Lightweight, zero-sidecar HTTP traffic observability for Kubernetes.**
 
-**KubeMesh** is a cloud-native network sniffer that provides instant visibility into HTTP API traffic across your Kubernetes nodes. Unlike traditional service meshes, KubeMesh requires **zero sidecars**, no application restarts, and has near-zero overhead on your application pods.
+**KubeSocket** is a cloud-native network sniffer that provides instant visibility into HTTP API traffic across your Kubernetes nodes. Unlike traditional service meshes, KubeSocket requires **zero sidecars**, no application restarts, and has near-zero overhead on your application pods.
 
-By tapping directly into the host network interface, KubeMesh reconstructs TCP streams and provides structured logs of live API requests, making it the perfect tool for debugging distributed systems and monitoring inter-service communication in real-time.
+By tapping directly into the host network interface, KubeSocket reconstructs TCP streams and provides structured logs of live API requests, making it the perfect tool for debugging distributed systems and monitoring inter-service communication in real-time.
 
 ## Quick Start
 
@@ -28,7 +28,7 @@ curl http://localhost:32407
 kubectl exec -l app=curl -- curl -s http://10.244.1.2
 
 # View logs
-kubectl logs -l name=kubemesh --follow
+kubectl logs -l name=kubesocket --follow
 ```
 
 ### Cleanup
@@ -41,7 +41,7 @@ kind delete cluster
 
 # Ethernet Packet Offset Reference
 
-This guide provides the byte indexes for slicing raw kubemesh data starting from the Ethernet header (Layer 2).
+This guide provides the byte indexes for slicing raw kubesocket data starting from the Ethernet header (Layer 2).
 
 ### Packet Header Map
 

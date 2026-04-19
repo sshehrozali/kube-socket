@@ -1,4 +1,4 @@
-package kubemesh
+package kubesocket
 
 import "os"
 

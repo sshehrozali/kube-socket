@@ -1,4 +1,4 @@
-module kubemesh
+module kubesocket
 
 go 1.25.5
 

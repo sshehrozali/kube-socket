@@ -27,8 +27,8 @@ COPY . .
 ARG TARGETOS TARGETARCH
 RUN CGO_ENABLED=1 xx-go build \
     -ldflags="-s -w" \
-    -o /kubemesh ./cmd/kubemesh/main.go && \
-    xx-verify /kubemesh
+    -o /kubesocket ./cmd/kubesocket/main.go && \
+    xx-verify /kubesocket
 
 # --- Stage 2: Final Runtime ---
 # This stage defaults to the TARGETPLATFORM automatically
@@ -38,13 +38,13 @@ FROM alpine:3.19
 RUN apk add --no-cache libpcap ca-certificates
 
 # Copy the optimized binary
-COPY --from=builder /kubemesh /usr/local/bin/kubemesh
+COPY --from=builder /kubesocket /usr/local/bin/kubesocket
 
 # Product Metadata
-LABEL org.opencontainers.image.title="KubeMesh"
+LABEL org.opencontainers.image.title="KubeSocket"
 LABEL org.opencontainers.image.description="Zero-sidecar K8s traffic observability"
 
 # Default Production Config
 ENV TRAFFIC_PORT=80
 
-ENTRYPOINT ["/usr/local/bin/kubemesh"]
+ENTRYPOINT ["/usr/local/bin/kubesocket"]

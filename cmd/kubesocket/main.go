@@ -1,7 +1,7 @@
 package main
 
 import (
-	"kubemesh/internal/kubemesh"
+	"kubesocket/internal/kubesocket"
 	"log"
 )
 
@@ -11,23 +11,23 @@ const (
 )
 
 func main() {
-	log.Print("Initialising kubemesh")
+	log.Print("Initialising kubesocket")
 
 	log.Print("Retriving env secrets...")
-	tp := kubemesh.GetEnv(TRAFFIC_PORT, "80")
-	if !kubemesh.IsValidPort(tp) {
+	tp := kubesocket.GetEnv(TRAFFIC_PORT, "80")
+	if !kubesocket.IsValidPort(tp) {
 		log.Fatal("Traffic port is invalid")
 	}
 
-	nic := kubemesh.GetEnv(NODE_NETWORK_INTERFACE, "any")
-	if !kubemesh.IsValidNodeNic(nic) {
+	nic := kubesocket.GetEnv(NODE_NETWORK_INTERFACE, "any")
+	if !kubesocket.IsValidNodeNic(nic) {
 		log.Fatal("Invalid node network interface")
 	}
 
-	service := kubemesh.New(tp, nic)
+	service := kubesocket.New(tp, nic)
 	handle := service.Start()
 
-	tsf := &kubemesh.TCPStreamFactory{}
+	tsf := &kubesocket.TCPStreamFactory{}
 	assembler := service.Assemble(handle, tsf)
 
 	service.Stream(handle, assembler)

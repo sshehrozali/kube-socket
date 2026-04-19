@@ -1,4 +1,4 @@
-package kubemesh
+package kubesocket
 
 import (
 	"fmt"
@@ -23,7 +23,7 @@ func New(tp string, nic string) *Service {
 }
 
 func (s *Service) Start() *pcap.Handle {
-	log.Print("Starting kubemesh service")
+	log.Print("Starting kubesocket service")
 
 	log.Printf("Using port %s for BPF", s.TrafficPort)
 	bpf := fmt.Sprintf("tcp port %s", s.TrafficPort)
