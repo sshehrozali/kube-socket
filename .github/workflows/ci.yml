@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  go:
+    name: Go
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Install libpcap (CGO)
+        run: sudo apt-get update && sudo apt-get install -y libpcap-dev
+
+      - name: Go mod tidy check
+        run: |
+          go mod tidy
+          git diff --exit-code go.mod go.sum
+
+      - name: Build
+        env:
+          CGO_ENABLED: 1
+        run: go build -trimpath -o /tmp/kubesocket ./cmd/kubesocket
+
+      - name: Test
+        env:
+          CGO_ENABLED: 1
+        run: go test ./...
+
+      - name: Vet
+        run: go vet ./...
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Install libpcap (CGO)
+        run: sudo apt-get update && sudo apt-get install -y libpcap-dev
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.62.2
+          args: --timeout=5m
