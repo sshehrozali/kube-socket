@@ -1,5 +1,7 @@
-module kubesocket
+module github.com/sshehrozali/kube-socket
 
-go 1.25.5
+go 1.23
 
-require github.com/google/gopacket v1.1.19 // indirect
+require github.com/google/gopacket v1.1.19
+
+require golang.org/x/sys v0.0.0-20190412213103-97732733099d // indirect

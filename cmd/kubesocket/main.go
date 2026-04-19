@@ -1,8 +1,9 @@
 package main
 
 import (
-	"kubesocket/internal/kubesocket"
 	"log"
+
+	"github.com/sshehrozali/kube-socket/internal/kubesocket"
 )
 
 const (
@@ -13,7 +14,7 @@ const (
 func main() {
 	log.Print("Initialising kubesocket")
 
-	log.Print("Retriving env secrets...")
+	log.Print("Retrieving env secrets...")
 	tp := kubesocket.GetEnv(TRAFFIC_PORT, "80")
 	if !kubesocket.IsValidPort(tp) {
 		log.Fatal("Traffic port is invalid")
