@@ -1,6 +1,6 @@
 # --- Stage 1: Build ---
 # We use BUILDPLATFORM to ensure the builder itself runs on the host's native speed
-FROM --platform=$BUILDPLATFORM golang:1.25-alpine AS builder
+FROM --platform=$BUILDPLATFORM golang:1.23-alpine AS builder
 
 # 1. Install 'xx' - the magic bridge for cross-compiling CGO
 COPY --from=tonistiigi/xx / /

@@ -7,7 +7,7 @@ BUILDER_NAME ?= kubesocket-builder
 
 FULL_IMAGE_NAME = $(DOCKER_USER)/$(IMAGE_NAME)
 
-.PHONY: help build-local release clean
+.PHONY: help build test vet lint build-local kind-up release clean
 
 # Default target: show help
 help:
@@ -15,10 +15,31 @@ help:
 	@echo "KubeSocket Build System"
 	@echo "================================================================"
 	@echo "Usage:"
-	@echo "  make build-local  - Build for your current machine architecture"
+	@echo "  make test         - Run unit tests (requires libpcap for CGO)"
+	@echo "  make vet          - Run go vet"
+	@echo "  make lint         - Run golangci-lint (install binary separately)"
+	@echo "  make build        - Build kubesocket binary to ./bin/kubesocket"
+	@echo "  make build-local  - Build Docker image for current architecture"
+	@echo "  make kind-up      - Local kind cluster + demo (see hack/setup-kind.sh)"
 	@echo "  make release      - Build & Push Multi-Arch (AMD64/ARM64) to Hub"
 	@echo "  make clean        - Remove local build artifacts"
 	@echo "================================================================"
+
+build:
+	@mkdir -p bin
+	CGO_ENABLED=1 go build -trimpath -ldflags="-s -w" -o bin/kubesocket ./cmd/kubesocket
+
+test:
+	CGO_ENABLED=1 go test ./...
+
+vet:
+	go vet ./...
+
+lint:
+	golangci-lint run
+
+kind-up:
+	./hack/setup-kind.sh
 
 docker-login:
 	@echo "Logging into Docker Hub..."
@@ -52,5 +73,5 @@ release: docker-login
 # 3. Clean up
 clean:
 	@echo "Cleaning up build artifacts..."
-	# Add binary paths if you build them outside of Docker
+	rm -rf bin/
 	docker rmi $(FULL_IMAGE_NAME):latest || true
