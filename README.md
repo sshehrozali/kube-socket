@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.png" alt="KubeSocket logo" width="320" />
+</p>
+
 # KubeSocket
 
 **Lightweight, zero-sidecar HTTP traffic observability for Kubernetes.**
