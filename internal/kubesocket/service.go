@@ -34,7 +34,9 @@ func (s *Service) Start() *pcap.Handle {
 	}
 	log.Printf("Handle opened on %s", s.NodeNetworkInterface)
 
-	handle.SetBPFFilter(bpf)
+	if err := handle.SetBPFFilter(bpf); err != nil {
+		log.Fatalf("BPF filter: %v", err)
+	}
 	log.Print("BPF filter set successfully")
 
 	return handle
