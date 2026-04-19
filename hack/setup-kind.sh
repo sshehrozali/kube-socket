@@ -1,59 +1,57 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Provisions a local kind cluster and demo workloads for KubeSocket development.
+set -euo pipefail
 
-set -e  # Exit on any error
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+KIND_MANIFESTS="${REPO_ROOT}/deploy/kind"
+
+cd "${REPO_ROOT}"
 
 echo "=========================================="
 echo "Setting up Network Listener Demo"
 echo "=========================================="
 echo ""
 
-# Step 1: Create kind cluster
 echo "Step 1: Creating kind cluster with port mappings..."
 if kind get clusters | grep -q "^kind$"; then
     echo "Cluster 'kind' already exists. Deleting..."
     kind delete cluster
 fi
-kind create cluster --config kubernetes/kind-config.yaml
+kind create cluster --config "${KIND_MANIFESTS}/kind-config.yaml"
 echo "✓ Cluster created"
 echo ""
 
-# Step 2: Build Docker image
 echo "Step 2: Building Docker image (kubesocket:v3)..."
 docker build -t kubesocket:v3 .
 echo "✓ Image built"
 echo ""
 
-# Step 3: Load image into kind
 echo "Step 3: Loading image into kind cluster..."
 kind load docker-image kubesocket:v3
 echo "✓ Image loaded"
 echo ""
 
-# Step 4: Deploy nginx
 echo "Step 4: Deploying nginx..."
-kubectl apply -f kubernetes/nginx-deployment.yaml
+kubectl apply -f "${KIND_MANIFESTS}/nginx-deployment.yaml"
 echo "✓ Nginx deployed"
 echo ""
 
-# Step 5: Deploy Spring app
 echo "Step 5: Deploying Spring app..."
-kubectl apply -f kubernetes/spring-app.yaml
+kubectl apply -f "${KIND_MANIFESTS}/spring-app.yaml"
 echo "✓ Spring app deployed"
 echo ""
 
-# Step 6: Deploy kubesocket
 echo "Step 6: Deploying kubesocket DaemonSet..."
-kubectl apply -f kubernetes/daemonset.yaml
+kubectl apply -f "${KIND_MANIFESTS}/daemonset.yaml"
 echo "✓ Packet sniffer deployed"
 echo ""
 
-# Step 7: Deploy curl pod
 echo "Step 7: Deploying curl pod for testing..."
-kubectl apply -f kubernetes/curl-deployment.yaml
+kubectl apply -f "${KIND_MANIFESTS}/curl-deployment.yaml"
 echo "✓ Curl pod deployed"
 echo ""
 
-# Step 8: Wait for pods to be ready
 echo "Step 8: Waiting for all pods to be ready..."
 kubectl wait --for=condition=ready pod -l app=my-nginx --timeout=60s
 kubectl wait --for=condition=ready pod -l app=spring-app --timeout=60s
