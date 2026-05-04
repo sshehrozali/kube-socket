@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: kubesocket
+  name: kubetracer
   namespace: kube-system # Usually best for infra tools
   labels:
-    app: kubesocket
+    app: kubetracer
 spec:
   selector:
     matchLabels:
-      app: kubesocket
+      app: kubetracer
   template:
     metadata:
       labels:
-        app: kubesocket
+        app: kubetracer
     spec:
       # CRITICAL: This allows the pod to see the node's real network interfaces (eth0, etc.)
       hostNetwork: true
@@ -23,8 +23,8 @@ spec:
       #   domain: identity
 
       containers:
-      - name: kubesocket
-        image: shehrozdevhub/kubesocket:latest
+      - name: kubetracer
+        image: shehrozdevhub/kubetracer:latest
         imagePullPolicy: Always
         
         # Performance/Stability settings

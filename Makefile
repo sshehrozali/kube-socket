@@ -1,9 +1,9 @@
-# --- KubeSocket Build Configuration ---
+# --- KubeTracer Build Configuration ---
 DOCKER_USER  ?= shehrozdevhub
-IMAGE_NAME   ?= kubesocket
+IMAGE_NAME   ?= kubetracer
 VERSION      ?= v1.0.1
 PLATFORMS    ?= linux/amd64,linux/arm64
-BUILDER_NAME ?= kubesocket-builder
+BUILDER_NAME ?= kubetracer-builder
 
 FULL_IMAGE_NAME = $(DOCKER_USER)/$(IMAGE_NAME)
 
@@ -12,13 +12,13 @@ FULL_IMAGE_NAME = $(DOCKER_USER)/$(IMAGE_NAME)
 # Default target: show help
 help:
 	@echo "================================================================"
-	@echo "KubeSocket Build System"
+	@echo "KubeTracer Build System"
 	@echo "================================================================"
 	@echo "Usage:"
 	@echo "  make test         - Run unit tests (requires libpcap for CGO)"
 	@echo "  make vet          - Run go vet"
 	@echo "  make lint         - Run golangci-lint (install binary separately)"
-	@echo "  make build        - Build kubesocket binary to ./bin/kubesocket"
+	@echo "  make build        - Build kubetracer binary to ./bin/kubetracer"
 	@echo "  make build-local  - Build Docker image for current architecture"
 	@echo "  make kind-up      - Local kind cluster + demo (see hack/setup-kind.sh)"
 	@echo "  make release      - Build & Push Multi-Arch (AMD64/ARM64) to Hub"
@@ -27,7 +27,7 @@ help:
 
 build:
 	@mkdir -p bin
-	CGO_ENABLED=1 go build -trimpath -ldflags="-s -w" -o bin/kubesocket ./cmd/kubesocket
+	CGO_ENABLED=1 go build -trimpath -ldflags="-s -w" -o bin/kubetracer ./cmd/kubetracer
 
 test:
 	CGO_ENABLED=1 go test ./...

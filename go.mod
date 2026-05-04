@@ -1,4 +1,4 @@
-module github.com/sshehrozali/kube-socket
+module github.com/sshehrozali/kubetracer
 
 go 1.23
 

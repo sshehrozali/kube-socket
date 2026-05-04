@@ -1,4 +1,4 @@
-package kubesocket
+package kubetracer
 
 import "os"
 

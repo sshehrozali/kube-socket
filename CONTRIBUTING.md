@@ -1,6 +1,6 @@
-# Contributing to KubeSocket
+# Contributing to KubeTracer
 
-Thanks for helping improve KubeSocket. This document describes how we work and what to expect when you open issues or pull requests.
+Thanks for helping improve KubeTracer. This document describes how we work and what to expect when you open issues or pull requests.
 
 ## Code of conduct
 

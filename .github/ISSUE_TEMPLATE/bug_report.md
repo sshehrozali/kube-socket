@@ -6,7 +6,7 @@ labels: bug
 
 ## Environment
 
-- KubeSocket version / image tag:
+- KubeTracer version / image tag:
 - Kubernetes version:
 - Node OS / kernel (if relevant):
 - Capture settings (`TRAFFIC_PORT`, `NODE_NETWORK_INTERFACE`):

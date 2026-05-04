@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: kubesocket
+  name: kubetracer
 spec:
   selector:
     matchLabels:
-      name: kubesocket
+      name: kubetracer
   template:
     metadata:
       labels:
-        name: kubesocket
+        name: kubetracer
     spec:
       hostNetwork: true # CRITICAL: This lets you see the node's traffic
       containers:
-      - name: kubesocket
-        image: kubesocket:v3
+      - name: kubetracer
+        image: kubetracer:v3
         securityContext:
-          privileged: true # CRITICAL: Accessing kubesocket interfaces requires root-level permissions
+          privileged: true # CRITICAL: Capturing packets on node NICs requires privileged mode

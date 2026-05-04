@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Provisions a local kind cluster and demo workloads for KubeSocket development.
+# Provisions a local kind cluster and demo workloads for KubeTracer development.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -22,13 +22,13 @@ kind create cluster --config "${KIND_MANIFESTS}/kind-config.yaml"
 echo "✓ Cluster created"
 echo ""
 
-echo "Step 2: Building Docker image (kubesocket:v3)..."
-docker build -t kubesocket:v3 .
+echo "Step 2: Building Docker image (kubetracer:v3)..."
+docker build -t kubetracer:v3 .
 echo "✓ Image built"
 echo ""
 
 echo "Step 3: Loading image into kind cluster..."
-kind load docker-image kubesocket:v3
+kind load docker-image kubetracer:v3
 echo "✓ Image loaded"
 echo ""
 
@@ -42,7 +42,7 @@ kubectl apply -f "${KIND_MANIFESTS}/spring-app.yaml"
 echo "✓ Spring app deployed"
 echo ""
 
-echo "Step 6: Deploying kubesocket DaemonSet..."
+echo "Step 6: Deploying kubetracer DaemonSet..."
 kubectl apply -f "${KIND_MANIFESTS}/daemonset.yaml"
 echo "✓ Packet sniffer deployed"
 echo ""
@@ -55,7 +55,7 @@ echo ""
 echo "Step 8: Waiting for all pods to be ready..."
 kubectl wait --for=condition=ready pod -l app=my-nginx --timeout=60s
 kubectl wait --for=condition=ready pod -l app=spring-app --timeout=60s
-kubectl wait --for=condition=ready pod -l name=kubesocket --timeout=60s
+kubectl wait --for=condition=ready pod -l name=kubetracer --timeout=60s
 kubectl wait --for=condition=ready pod -l app=curl --timeout=60s
 echo "✓ All pods ready"
 echo ""
@@ -72,8 +72,8 @@ echo "Test pod-to-pod traffic:"
 echo "  kubectl exec -l app=curl -- curl -s http://10.244.1.2"
 echo "  kubectl exec -l app=curl -- curl -s http://spring-app.default.svc.cluster.local:3000"
 echo ""
-echo "View kubesocket logs:"
-echo "  kubectl logs -l name=kubesocket --follow"
+echo "View kubetracer logs:"
+echo "  kubectl logs -l name=kubetracer --follow"
 echo ""
 echo "View all pods:"
 echo "  kubectl get pods -o wide"

@@ -1,19 +1,21 @@
 <p align="center">
-  <img src="logo.png" alt="KubeSocket logo" width="320" />
+  <img src="logo.png" alt="KubeTracer logo" width="320" />
 </p>
 
-# kubetracer
+# KubeTracer
 
 KubeTracer is a high-performance, cloud-native network monitor designed for transparent visibility into HTTP/gRPC traffic across Kubernetes nodes. Unlike proxy-based service meshes, KubeTracer operates with zero sidecars, requires no application restarts, and ensures near-zero overhead on your application pods.
 
-By capturing traffic at the host-network interface, KubeTracer reassembles TCP streams to provide live observability—optimized for debugging distributed systems and monitoring inter-service communication.
+**KubeTracer** is a cloud-native network sniffer that provides visibility into HTTP API traffic across your Kubernetes nodes. Unlike traditional service meshes, KubeTracer requires **zero sidecars**, no application restarts, and has near-zero overhead on your application pods.
+
+By tapping the host network interface, KubeTracer reconstructs TCP streams and logs live traffic—useful for debugging distributed systems and monitoring inter-service communication.
 
 ## Repository layout
 
 | Path | Purpose |
 |------|---------|
-| [`cmd/kubesocket`](cmd/kubesocket) | Main entrypoint |
-| [`internal/kubesocket`](internal/kubesocket) | Capture and TCP assembly logic |
+| [`cmd/kubetracer`](cmd/kubetracer) | Main entrypoint |
+| [`internal/kubetracer`](internal/kubetracer) | Capture and TCP assembly logic |
 | [`deploy/kind`](deploy/kind) | [kind](https://kind.sigs.k8s.io/) cluster config and demo workloads |
 | [`deploy/manifests`](deploy/manifests) | Example DaemonSet manifests (registry / local variants) |
 | [`deploy/examples`](deploy/examples) | Optional load-test manifests |
@@ -47,7 +49,7 @@ curl http://localhost:32407
 kubectl exec -l app=curl -- curl -s http://10.244.1.2
 
 # View logs
-kubectl logs -l name=kubesocket --follow
+kubectl logs -l name=kubetracer --follow
 ```
 
 ### Cleanup
