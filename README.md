@@ -2,13 +2,13 @@
   <img src="logo.png" alt="KubeSocket logo" width="320" />
 </p>
 
-# KubeSocket
+# kubetracer
 
-**Lightweight, zero-sidecar HTTP traffic observability for Kubernetes.**
+**sidecarless, node-level network monitoring for high-performance HTTP observability**
 
-**KubeSocket** is a cloud-native network sniffer that provides visibility into HTTP API traffic across your Kubernetes nodes. Unlike traditional service meshes, KubeSocket requires **zero sidecars**, no application restarts, and has near-zero overhead on your application pods.
+KubeTracer is a high-performance, cloud-native network monitor designed for transparent visibility into HTTP/gRPC traffic across Kubernetes nodes. Unlike proxy-based service meshes, KubeTracer operates with zero sidecars, requires no application restarts, and ensures near-zero overhead on your application pods.
 
-By tapping the host network interface, KubeSocket reconstructs TCP streams and logs live traffic—useful for debugging distributed systems and monitoring inter-service communication.
+By capturing traffic at the host-network interface, KubeTracer reassembles TCP streams to provide live observability—optimized for debugging distributed systems and monitoring inter-service communication.
 
 ## Repository layout
 
